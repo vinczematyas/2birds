@@ -37,9 +37,9 @@ def f_y_1(x0, x1):
 functions = [f_y_0, f_y_1]
 
 # Load datasets
-train_ds = SignalDataset(torch.load('../data/train_dataset.pt'))
-val_ds = SignalDataset(torch.load('../data/validation_dataset.pt'))
-scoring_ds = SignalDataset(torch.load('../data/scoring_dataset.pt'))
+train_ds = SignalDataset(torch.load('train_dataset.pt'))
+val_ds = SignalDataset(torch.load('validation_dataset.pt'))
+scoring_ds = SignalDataset(torch.load('scoring_dataset.pt'))
 
 train_dl = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
 val_dl = DataLoader(val_ds, batch_size=args.batch_size)
