@@ -47,6 +47,7 @@ scoring_dl = DataLoader(scoring_ds, batch_size=len(scoring_ds))
 
 # Define model
 model = CVAE(args)
+model.to(device)
 
 # Define optimizer and loss
 optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
@@ -61,8 +62,8 @@ for epoch in range(args.num_epochs):
     cond_loss = 0.0
 
     for batch_idx, (data, condition) in enumerate(track(train_dl)):
-        data = data.to(device)
-        condition = condition.to(device)
+        data.to(device)
+        condition.to(device)
 
         recon_data, z_mean, z_logvar = model(data, condition)
         loss, loss_KDL, loss_x, loss_y = loss_function(recon_data, data, condition, z_mean, z_logvar, args.beta, args.wx, args.wy, functions)
@@ -87,8 +88,8 @@ model.eval()
 val_loss = 0.0
 with torch.no_grad():
     for batch_idx, (data, condition) in enumerate(track(val_dl)):
-        data = data.to(device)
-        condition = condition.to(device)
+        data.to(device)
+        condition.to(device)
 
         recon_data, z_mean, z_logvar = model(data, condition)
         loss,_,_,_ = loss_function(recon_data, data, condition, z_mean, z_logvar, 0.1, 0.1, 0.1, functions)
